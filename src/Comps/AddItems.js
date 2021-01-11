@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {useHistory } from "react-router-dom";
 import SendIcon from '@material-ui/icons/Send';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import '../App.css'
 function AddItems(props) {
 
@@ -15,39 +16,34 @@ function AddItems(props) {
   
 
     return (
+
         <div>
+        <h1>Form</h1>
 
-            <h1>Form</h1>
+            <KeyboardBackspaceIcon to="/" onClick={()=> history.push('/') }/>
 
-            <button to="/" onClick={()=> history.push('/') }>Back</button>
-            
-            <br />
-            <br />
-            
-            <input className="inputTitle" placeholder="Add Title" value={values.title}
-                onChange={(event) => {
-                    setValues({...values, title: event.target.value})
-                }}
-            />
-            
-            <br />
+<br />
+<br />
 
-            <input className="inputDate" placeholder="Add Date" value={values.date} type="date"
-                onChange={(event) => {
-                    setValues({...values, date: event.target.value})
-                }}
-            />
+        <input className="inputTitle" placeholder="Add Title" value={values.title}
+        onChange={(event) => {
+        setValues({...values, title: event.target.value})
+        }}/>
 
-            <br />
-            <textarea className="inputdes" placeholder="Add Descriptions" value={values.descrp} type="text"
-                onChange={(event) => {
-                    setValues({...values, descrp: event.target.value})
-                }}
-            />
-            <br/>
-            <button onClick={handleSubmit}>Submit</button>
-            
-            
+<br />
+
+        <input className="inputDate" placeholder="Add Date" value={values.date} type="date"
+        onChange={(event) => {
+        setValues({...values, date: event.target.value})
+        }}/>
+
+<br />
+        <textarea className="inputdes" placeholder="Add Descriptions" value={values.descrp} type="text"
+        onChange={(event) => {
+        setValues({...values, descrp: event.target.value})
+        }}/>
+<br/>
+        <button onClick={handleSubmit} > Submit</button>
         </div>
 
     );

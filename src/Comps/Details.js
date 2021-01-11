@@ -12,7 +12,7 @@ function Details(props) {
                 <h1>Details Page</h1>
                 <br/>
                 <br/>
-                <button onClick={()=> history.push('/')}> Back</button>
+                <KeyboardBackspaceIcon onClick={()=> history.push('/')}> Back</KeyboardBackspaceIcon>
 
            {props.items.length > 0 && props.items.map((item, index) => 
              <>
