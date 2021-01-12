@@ -5,10 +5,11 @@ import SaveIcon from '@material-ui/icons/Save';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Button from '@material-ui/core/Button';
 import '../App.css'
+import TextField from '@material-ui/core/TextField';
 function AddItems(props) {
 
     let history = useHistory();
-    
+
     const [values, setValues]= useState({title:'', date:'', descrp:''});
    
     const handleSubmit=()=>{
@@ -19,33 +20,49 @@ function AddItems(props) {
 
     return (
     <Router>
-        <div>
+        <div className="addItems">
        <h1>Form</h1>
         <KeyboardBackspaceIcon to="/" onClick={()=> history.push('/') }/>
 
             <br />
-
-        <input className="inputTitle" placeholder="Add Title" 
+            <TextField id="standard-basic" label="Add Title" 
+            // className="inputTitle" 
         value={values.title}
         onChange={(event) => {
         setValues({...values, title: event.target.value})
-        }} />
+        }}/>
             <br />
-
-        <input className="inputDate" placeholder="Add Date" 
-        value={values.date} 
+            <TextField
+        id="date"
+        label="Add Date"
         type="date"
+        defaultValue="2017-05-24"
+    
+        InputLabelProps={{
+          shrink: true,
+        }}
+        className="inputDate" 
+        value={values.date} 
         onChange={(event) => {
         setValues({...values, date: event.target.value})
-        }} />
+        }}
+      />
 
             <br />
-        
-        <textarea className="inputdes" placeholder="Add Descriptions" 
-        value={values.descrp} 
-        type="text"
-        onChange={(event) => {setValues({...values, descrp: event.target.value})
-        }}/>
+            <TextField
+            className="inputdes"
+            value={values.descrp} 
+            type="text"
+            onChange={(event) => {setValues({...values, descrp: event.target.value})
+            }}
+          id="outlined-multiline-static"
+          label="Add Descriptions"
+          multiline
+          rows={4}
+          defaultValue="Default Value"
+          variant="outlined"
+        />
+
 
             <br/>   
         <Button variant="contained" color="primary"

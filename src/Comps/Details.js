@@ -1,8 +1,10 @@
 import React,{useState} from 'react';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { BrowserRouter as Router, Switch,Link, useHistory } from "react-router-dom";
-
-
+import Button from '@material-ui/core/Button';
+import CreateIcon from '@material-ui/icons/Create';
+import DeleteIcon from '@material-ui/icons/Delete';
+import '../App.css';
 function Details(props) {
 
     const history = useHistory();
@@ -14,7 +16,7 @@ function Details(props) {
     }
     return (
      <Router>
-            <div>
+            <div className="Details">
                 <h1>Details Page</h1>
                 <br/>
                 <ArrowBackIcon onClick={()=> history.push('/')}/>
@@ -28,10 +30,25 @@ function Details(props) {
              
              <p key={index.descrp}>Descriptions: {item.descrp}</p>
              
-             <button onClick={() => handleEdit(item)}>Edit</button>
+            <div className="buttons">
+            <Button
+             className="editBtn"
+             variant="contained"
+             color="primary"
+             startIcon={<CreateIcon />} 
+             onClick={() => handleEdit(item)}>Edit</Button>
              
-             <button onClick={()=>history.push('/form')}>Delete</button>
-             
+             <Button
+                className="deleteBtn"
+                onClick={()=>history.push('/form')}
+                variant="contained"
+                color="secondary"
+                startIcon={<DeleteIcon />}
+                    >
+                    Delete
+            </Button>
+            </div>
+
 
              </>)}
 

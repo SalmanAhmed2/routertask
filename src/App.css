@@ -1,3 +1,18 @@
+.Details ,.addItems,.HomePage,.editForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.buttons{
+    display: inline-block;
+}
+.editBtn , .deleteBtn{
+    flex-direction: row;
+    display: inline-block;
+    justify-content: space-around;
+
+}
 .inputTitle{
     width: 300px;
     height: 40px;

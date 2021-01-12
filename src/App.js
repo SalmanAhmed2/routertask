@@ -4,7 +4,7 @@ import AddItems from './Comps/AddItems';
 import Home from './Comps/Home';
 import Details from "./Comps/Details";
 import Edit from './Comps/Edit';
-
+import './App.css'
 export default function App(props) { 
 
   const [items, setItems] = useState([]);
