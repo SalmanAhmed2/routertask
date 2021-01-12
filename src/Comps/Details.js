@@ -31,6 +31,7 @@ function Details(props) {
              <button onClick={() => handleEdit(item)}>Edit</button>
              
              <button onClick={()=>history.push('/form')}>Delete</button>
+             
 
              </>)}
 
