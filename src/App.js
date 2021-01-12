@@ -3,20 +3,19 @@ import React, { useState } from 'react';
 import AddItems from './Comps/AddItems';
 import Home from './Comps/Home';
 import Details from "./Comps/Details";
-
-
+import Edit from './Comps/Edit';
 
 export default function App(props) { 
 
   const [items, setItems] = useState([]);
-  const [detailItems, setDetailItems] = useState([]);
+  const [newItemsList, setnewItemsList] = useState([]);
 
-const itemsList = (list) => {
+  const itemsList = (list) => {
   setItems(list);
-}
-console.log(detailItems,"detailItems")
-  
-  
+  setnewItemsList(list)
+  }
+
+
   return (
     <Router>
 
@@ -31,6 +30,14 @@ console.log(detailItems,"detailItems")
 
         <Route path="/details">
           <Details items={items}/>
+        </Route>
+
+        <Route path="/edit">
+          <Edit itemsList={itemsList}/>
+        </Route>
+
+        <Route path='/'>
+          <Home items={items}/>
         </Route>
       </Switch>
     </Router>

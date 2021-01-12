@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch,Link, useHistory } from "react-router-d
 function Home(props) {
 
     let history = useHistory();
+    console.log("newlist", props.newItemsList)
     return (
         <Router>
             <div>
