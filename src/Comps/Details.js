@@ -1,46 +1,54 @@
 import React,{useState} from 'react';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { BrowserRouter as Router, Switch,Link, useHistory } from "react-router-dom";
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Button from '@material-ui/core/Button';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { List } from '@material-ui/core';
 import '../App.css';
+
+
 function Details(props) {
 
     const history = useHistory();
-
+    
     const handleEdit=(item)=>{
-        history.push('/edit', {
-            item
-        });
+        history.push('/edit', {item});
     }
+
+    const handleDelete =(item, index)=>{
+        const arra =   props.items.filter((itemVal, id) =>  id !== index);
+        props.itemsList(arra)
+
+    }
+
     return (
      <Router>
             <div className="Details">
                 <h1>Details Page</h1>
                 <br/>
-                <ArrowBackIcon onClick={()=> history.push('/')}/>
+                <Button onClick={()=>history.push('/')}
+                   variant="contained"
+                     startIcon={<KeyboardBackspaceIcon />}> Back</Button>
 
-           {props.items.length > 0 && props.items.map((item, index) => 
+           {props.items.map((item, index) => 
              <>
-             
-             <h1 key={index.title}>Title: {item.title}</h1>
-             
-             <h2 key={index.date}>Date: {item.date}</h2>
-             
-             <p key={index.descrp}>Descriptions: {item.descrp}</p>
-             
+             <ul>
+             <List key={index.title}>Title: {item.title}</List>
+             <List key={index.date}>Date: {item.date}</List>
+             <List key={index.descrp}>Descriptions: {item.descrp}</List>
+             </ul>
             <div className="buttons">
-            <Button
-             className="editBtn"
-             variant="contained"
-             color="primary"
-             startIcon={<CreateIcon />} 
-             onClick={() => handleEdit(item)}>Edit</Button>
+                <Button
+                className="editBtn"
+                variant="contained"
+                color="primary"
+                startIcon={<CreateIcon />} 
+                onClick={() => handleEdit(item)}>Edit</Button>
              
              <Button
                 className="deleteBtn"
-                onClick={()=>history.push('/form')}
+                onClick={()=>handleDelete (item, index)}
                 variant="contained"
                 color="secondary"
                 startIcon={<DeleteIcon />}
