@@ -10,41 +10,39 @@ import TextField from '@material-ui/core/TextField';
 function AddItems(props) {
 
     let history = useHistory();
-
+    
     const [values, setValues]= useState({});
-   
+
     const handleSubmit=()=>{
+
         props.itemsList([...props.items, {...values}]);
         history.push('/');
     }
 
-  
     return (
 
     <Router>
 
     <div className="addItems">
+
        <h1>Form</h1>
         
-    <Button onClick={()=> history.push('/')}
+        <Button onClick={()=> history.push('/')}
         variant="contained"
-        startIcon={<KeyboardBackspaceIcon />}
-        > Back</Button>
+        startIcon={<KeyboardBackspaceIcon />}> Back</Button>
             <br />
-    <TextField id="standard-basic" label="Add Title" 
+        <TextField id="standard-basic" label="Add Title" 
             className="inputTitle" 
         value={values.title}
         onChange={(event) => {
         setValues({...values, title: event.target.value})
         }}/>
-        
             <br />
-    <TextField
+        <TextField
         className="inputDate"
         id="date"
         label="Add Date"
         type="date"
-        defaultValue="2017-05-24"
     
         InputLabelProps={{
           shrink: true,
@@ -65,8 +63,7 @@ function AddItems(props) {
             id="outlined-multiline-static"
             label="Add Descriptions"
             multiline
-            rows={4}
-            defaultValue="Default Value"
+            rows={5}
             variant="outlined"
         />
 

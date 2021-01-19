@@ -10,8 +10,8 @@ function Home(props) {
 
     let history = useHistory();
     const handleDelete =(item, index)=>{
-      const arra =   props.items.filter((itemVal, id) =>  id !== index);
-        props.itemsList(arra)
+      const delArra =   props.items.filter((itemVal, id) =>  id !== index);
+        props.itemsList(delArra)
     }
     
     const handleEdit=(item)=>{

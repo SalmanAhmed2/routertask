@@ -10,38 +10,33 @@ function Edit(props) {
 
     const selectedItem = location.state.item;
 
-    
-    let [newItem, setNewItem]= useState(selectedItem);
-
+    const [values, setValues]= useState(selectedItem);
 
     const handleUpdate=()=>{
-        props.itemsList(newItem)
-        history.push('/');
+    props.itemsList([{...values}])
+    history.push('/');
     }
-
     return (
         <div className="editForm">
             <h1>Edit Form</h1>
             <TextField id="standard-basic" label="Add Title" 
             type="text"
             className="inputTitle"
-            value={newItem.title}
+            value={values.title}
             onChange={(event) => 
-                setNewItem({newItem, title: event.target.value})}/>
-            
-
+                setValues({values, title: event.target.value})}/>
+                
             <input  placeholder="Add Date"
              type="date"
              className="inputDate"
-             value={newItem.date}
-             onChange={(event) => setNewItem({...newItem, date: event.target.value})}
-             />
+             value={values.date}
+             onChange={(event) => setValues({...values, date: event.target.value})}/>
             
             <textarea type="text"
             className="inputdes"
              placeholder="Add Descriptions"
-             value={newItem.descrp}
-             onChange={(event) => setNewItem({...newItem, descrp: event.target.value})}/>
+             value={values.descrp}
+             onChange={(event) => setValues({...values, descrp: event.target.value})}/>
               <Button
               onClick={handleUpdate}
              variant="contained"
@@ -51,5 +46,4 @@ function Edit(props) {
         </div>
     )
 }
-
 export default Edit
