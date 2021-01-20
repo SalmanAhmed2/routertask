@@ -6,7 +6,6 @@ import Button from '@material-ui/core/Button';
 import '../App.css'
 import TextField from '@material-ui/core/TextField';
 
-
 function AddItems(props) {
 
     let history = useHistory();
@@ -14,14 +13,11 @@ function AddItems(props) {
     const [values, setValues]= useState({});
 
     const handleSubmit=()=>{
-
-        props.itemsList([...props.items, {...values}]);
+        props.itemsList([...props.items, {...values, id:Math.floor(Math.random() * 100)}]);
         history.push('/');
     }
 
     return (
-
-    <Router>
 
     <div className="addItems">
 
@@ -67,13 +63,13 @@ function AddItems(props) {
             variant="outlined"
         />
 
-            <br/>   
+            <br/>
         <Button variant="contained" color="primary"
         startIcon={<SaveIcon/>} 
         onClick={()=>handleSubmit()}>Submit</Button>
         </div>
         
-    </Router>
+
         
     );
 }

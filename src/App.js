@@ -13,7 +13,7 @@ export default function App(props) {
   const itemsList = (list) => {
   setItems(list);
   }
-
+  
   return (
     <Router>
       <Switch>
@@ -25,7 +25,7 @@ export default function App(props) {
           <AddItems items = {items} itemsList={itemsList}/>
         </Route>
 
-        <Route path="/details">
+        <Route path="/details/:id">
           <Details items={items} itemsList={itemsList}/>
         </Route>
 

@@ -2,20 +2,24 @@ import React, {useState} from 'react';
 import UpdateIcon from '@material-ui/icons/Update';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { BrowserRouter as Router,  useHistory, useLocation } from "react-router-dom";
+import { BrowserRouter as Router,  useHistory, useLocation} from "react-router-dom";
 import '../App.css';
 function Edit(props) {
     let history = useHistory();
     const location = useLocation(); 
-
     const selectedItem = location.state.item;
-
     const [values, setValues]= useState(selectedItem);
 
+
     const handleUpdate=()=>{
-    props.itemsList([{...values}])
-    history.push('/');
-    }
+    console.log(props.items,"OLD")
+    const newValue = props.items.map((item)=> (item.id === values.id ? values : item))
+    console.log(newValue, "new items")
+    props.itemsList([...newValue])
+    history.push('/details/'+values.id);
+    
+}
+    
     return (
         <div className="editForm">
             <h1>Edit Form</h1>
@@ -24,14 +28,14 @@ function Edit(props) {
             className="inputTitle"
             value={values.title}
             onChange={(event) => 
-                setValues({values, title: event.target.value})}/>
+                setValues({...values, title: event.target.value})}/>
                 
             <input  placeholder="Add Date"
              type="date"
              className="inputDate"
              value={values.date}
              onChange={(event) => setValues({...values, date: event.target.value})}/>
-            
+
             <textarea type="text"
             className="inputdes"
              placeholder="Add Descriptions"
