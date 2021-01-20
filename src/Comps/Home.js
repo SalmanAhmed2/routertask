@@ -4,8 +4,13 @@ import { BrowserRouter as Router,useHistory} from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import TableCell from '@material-ui/core/TableCell';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
 
 function Home(props) {
     let history = useHistory();
@@ -13,7 +18,7 @@ function Home(props) {
       const delArra =   props.items.filter((itemVal, id) =>  id !== index);
         props.itemsList(delArra)
     }
-    
+
     const handleEdit=(item)=>{
         history.push('/edit',{
           item
@@ -33,33 +38,34 @@ function Home(props) {
           Create Task
           </Button>
           <div className="cardClass">
-              
-              {props.items.map((item, index)=>
+            {props.items.map((item, index)=>
               <>
-              <Card onClick={() => history.push(`/details/${item.id}`)}>
-                <CardContent>
-                  <p>{item.title}</p>
-                  <p>{item.date}</p>
-                </CardContent>
-              </Card>
-              <Button
-                className="editBtn"
-                variant="contained"
-                color="primary"
-                startIcon={<CreateIcon />} 
-                onClick={() => handleEdit(item)}>Edit</Button>
-             
-             <Button
-                className="deleteBtn"
-                onClick={()=>handleDelete(item, index)}
-                variant="contained"
-                color="secondary"
-                startIcon={<DeleteIcon />}>
-                    Delete
-              </Button>
+              <table className="table">
+                <thead>
+                <tr className="tableheadrow">
+                <th className="tableDATA">Name</th>
+                <th className="tableDATA">Date</th>
+                <th className="tableDATA">Action</th>
+              </tr>
+                </thead>
+                <tbody>
+                  <tr key={index} className="tablerow">
+                <td>{item.title}</td>
+                <td>{item.date}</td>
+              <td>
+              <CreateIcon onClick={() => handleEdit(item)} />
+             <DeleteIcon onClick={()=>handleDelete(item, index)} />
+             <ArrowForwardIosIcon onClick={() => history.push(`/details/${item.id}`)}/>             
+              </td>
+              </tr>
+              {/* <tr> <td><hr/></td><td><hr/></td> <td><hr/></td></tr> */}
+              
+                </tbody>
+              </table>
               </>
               )}
-          </div>
+            </div>
+          
          </div>
             
         </Router >

@@ -16,32 +16,50 @@ function Edit(props) {
     const newValue = props.items.map((item)=> (item.id === values.id ? values : item))
     console.log(newValue, "new items")
     props.itemsList([...newValue])
-    history.push('/details/'+values.id);
+    history.push('/');
     
 }
     
     return (
-        <div className="editForm">
+        <div>
             <h1>Edit Form</h1>
+            
             <TextField id="standard-basic" label="Add Title" 
             type="text"
             className="inputTitle"
             value={values.title}
             onChange={(event) => 
                 setValues({...values, title: event.target.value})}/>
-                
-            <input  placeholder="Add Date"
-             type="date"
-             className="inputDate"
-             value={values.date}
-             onChange={(event) => setValues({...values, date: event.target.value})}/>
 
-            <textarea type="text"
+                <br/>
+                
+        <TextField
+        className="inputDate"
+        id="date"
+        label="Add Date"
+        type="date"
+    
+        InputLabelProps={{
+          shrink: true,
+        }}
+        className="inputDate" 
+        value={values.date} 
+        onChange={(event) => {
+        setValues({...values, date: event.target.value})
+        }} />
+            <br/>
+         <TextField
             className="inputdes"
-             placeholder="Add Descriptions"
-             value={values.descrp}
-             onChange={(event) => setValues({...values, descrp: event.target.value})}/>
-              <Button
+            value={values.descrp} 
+            type="text"
+            onChange={(event) => {setValues({...values, descrp: event.target.value})}}
+            id="outlined-multiline-static"
+            label="Add Descriptions"
+            multiline
+            rows={5}
+            variant="outlined"/>
+              <br/>
+            <Button
               onClick={handleUpdate}
              variant="contained"
              color="primary"

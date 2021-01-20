@@ -1,9 +1,4 @@
-.Details ,.addItems,.HomePage,.editForm{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
+
 .buttons{
     display: inline-block;
 }
@@ -32,4 +27,34 @@
     width: 400px;
     margin-bottom: 20px;
     border: 2px solid grey;
+}
+.cardClass{
+width: 600px;
+display: flex;
+padding: 30px;
+flex-direction: column;
+}
+.table{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.tableheadrow{
+line-height: 30px;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+margin: 5px 0px 5px 0px;
+background-color: blanchedalmond;
+}
+.tablerow{
+    display: flex;
+flex-direction: row;
+justify-content: space-between;
+margin: 5px 0px 5px 0px;
+}
+.tableDATA{
+    display: flex;
+    flex-direction: row;
+    background-color: blanchedalmond;
 }

@@ -20,10 +20,9 @@ function AddItems(props) {
     return (
 
     <div className="addItems">
-
-       <h1>Form</h1>
+       <h1>Create Task</h1>
         
-        <Button onClick={()=> history.push('/')}
+        <Button className="backBTN" onClick={()=> history.push('/')}
         variant="contained"
         startIcon={<KeyboardBackspaceIcon />}> Back</Button>
             <br />
