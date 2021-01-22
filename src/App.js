@@ -1,9 +1,10 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import React, { useState } from 'react';
 import AddItems from './Comps/AddItems';
 import Home from './Comps/Home';
 import Details from "./Comps/Details";
 import Edit from './Comps/Edit';
+import ImageViewer from './Comps/ImageViewer'
 import './App.css'
 
 export default function App(props) { 
@@ -32,7 +33,9 @@ export default function App(props) {
         <Route path="/edit">
           <Edit itemsList={itemsList} items={items}/>
         </Route>
-
+        <Route path="/imageviewer">
+          <ImageViewer/>
+        </Route>
       </Switch>
     </Router>
 );

@@ -1,15 +1,15 @@
-import React,{useState} from 'react';
-import { BrowserRouter as Router, Switch,Link, useHistory, useParams } from "react-router-dom";
+import React from 'react';
+import { useHistory, useParams } from "react-router-dom";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Button from '@material-ui/core/Button';
 import '../App.css';
 
 
 function Details(props) {
-
+    
     const history = useHistory();
     let path = useParams();
-
+    
     return (
             <div className="Details">
                 <h1>Details Page</h1>
@@ -19,28 +19,27 @@ function Details(props) {
                      startIcon={<KeyboardBackspaceIcon />}>
                     Back
                 </Button>
-                <div><div>
-                  {props.items.filter(person => person.id == path.id).map(filteredPerson => (
+                <div>
+                {props.items.filter(item => item.id == path.id).map(filtereditem => (
                 <>
                      <h2>
                     Title:
-                      {filteredPerson.title}
+                      {filtereditem.title}
                     </h2>
                     <h2>
                         Date:
-                        {filteredPerson.date}
+                        {filtereditem.date}
                     </h2>
                     <h2>
                         Description:
-                        {filteredPerson.descrp}
+                        {filtereditem.descrp}
                     </h2>
-                </>
-  ))}
-</div>
+                    <img src={(URL.createObjectURL(filtereditem.img))} width="400" height="300"/>
+                    
+                    </>
+                ))}
 
-
-
-          </div>
+                </div>
                      
             </div>
     )
