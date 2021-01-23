@@ -1,41 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import '../App.css';
 import {useHistory} from "react-router-dom";
 import SaveIcon from '@material-ui/icons/Save';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import '../App.css';
+import { makeStyles } from '@material-ui/core/styles';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+
+const useStyles = makeStyles((theme) => ({
+    input: {
+      display: 'none',
+    },
+  }));
 
 function AddItems(props) {
-
     let history = useHistory();
 
     const [values, setValues]= useState({});
     
-    const handleSubmit=(event)=>{
+    const handleSubmit=()=>{
+        localStorage.setItem('myArray', JSON.stringify([...props.items, {...values}]));
         props.itemsList([...props.items, {...values, id:Math.floor(Math.random() * 100)}]);
         history.push('/');
-        console.log(values,"values")
     }
 
+    const classes = useStyles();
+    
+      
     return (
 
     <div className="addItems">
        <h1>Create Task</h1>
         
         <Button className="backBTN" onClick={()=> history.push('/')}
-        variant="contained"
-        startIcon={<KeyboardBackspaceIcon />}> Back</Button>
+        variant="contained" startIcon={<KeyboardBackspaceIcon />}> Back
+        </Button>
 
         <div className="fields">
-
         <TextField id="standard-basic" label="Add Title" 
-        className="inputTitle" 
-        value={values.title}
-        onChange={(event) => {
-        setValues({...values, title: event.target.value})
-        }}/>
-            <br />
+        className="inputTitle" value={values.title}
+        onChange={(event) => {setValues({...values, title: event.target.value})}}/>
+        
+        <br />
 
         <TextField
         className="inputDate"
@@ -55,14 +62,18 @@ function AddItems(props) {
         onChange={(event) => {setValues({...values, descrp: event.target.value})}}
         id="outlined-multiline-static"
         label="Add Descriptions" multiline rows={5} variant="outlined"/>
-
-       
-        <input type="file" accept="image/*" onChange={(event)=>{setValues({...values, img: event.target.files[0]})} }
-        />
-        </div>
+</div>
 
         <div className="formBTN">
+        <input accept="image/*"
+        onChange={(event)=>{setValues({...values, img: event.target.files[0]})} }
+        className={classes.input} id="contained-button-file" multiple type="file"/>
 
+      <label htmlFor="contained-button-file">
+        <Button variant="contained" color="primary" component="span" startIcon={<PhotoCamera/>}>
+          Upload
+        </Button>
+      </label>
         <Button variant="contained" color="primary" startIcon={<SaveIcon/>} 
         onClick={()=>handleSubmit()}>Submit</Button>
       </div>

@@ -1,10 +1,9 @@
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AddItems from './Comps/AddItems';
 import Home from './Comps/Home';
 import Details from "./Comps/Details";
 import Edit from './Comps/Edit';
-import ImageViewer from './Comps/ImageViewer'
 import './App.css'
 
 export default function App(props) { 
@@ -14,7 +13,15 @@ export default function App(props) {
   const itemsList = (list) => {
   setItems(list);
   }
+
+  useEffect(()=>{
   
+    let array = localStorage.getItem('myArray');
+  
+    setItems(JSON.parse(array));
+  
+  },[])
+
   return (
     <Router>
       <Switch>
@@ -33,9 +40,9 @@ export default function App(props) {
         <Route path="/edit">
           <Edit itemsList={itemsList} items={items}/>
         </Route>
-        <Route path="/imageviewer">
+        {/* <Route path="/imageviewer">
           <ImageViewer/>
-        </Route>
+        </Route> */}
       </Switch>
     </Router>
 );

@@ -37,33 +37,33 @@
 // export default  ImageViewer;
 
 
-import React, { Component } from "react";
+// import React, { Component } from "react";
 
-class ImageViewer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      img: null
-    };
+// class ImageViewer extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       img: null
+//     };
 
-  }
+//   }
 
-  onImageChange = event => {
-    if (event.target.files && event.target.files[0]) {
-      let image = event.target.files[0];
-      this.setState({
-        img: URL.createObjectURL(image)
-      });
-    }
-  };
+//   onImageChange = event => {
+//     if (event.target.files && event.target.files[0]) {
+//       let image = event.target.files[0];
+//       this.setState({
+//         img: URL.createObjectURL(image)
+//       });
+//     }
+//   };
   
-  render() {
-    return (
-          <div>
-            <input type="file" name="myImage" onChange={this.onImageChange} />
-            <img src={this.state.img} />
-          </div>
-         );
-  }
-}
-export default ImageViewer;
+//   render() {
+//     return (
+//           <div>
+//             <input type="file" name="myImage" onChange={this.onImageChange} />
+//             <img src={this.state.img} />
+//           </div>
+//          );
+//   }
+// }
+// export default ImageViewer;

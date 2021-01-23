@@ -1,20 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../App.css';
+import {useLocalStorage} from './useLocalStorage';
 import {useHistory, Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-
-
 function Home(props) {
     let history = useHistory();
-   
+
     const handleDelete =(item, index)=>{
+   
       const delArra =   props.items.filter((itemVal, id) =>  id !== index);
-        props.itemsList(delArra)
+      localStorage.setItem('myArray', JSON.stringify(delArra))
+      props.itemsList(delArra)
+   
     }
+    
     const handleEdit=(item)=>{
         history.push('/edit',{
           item
