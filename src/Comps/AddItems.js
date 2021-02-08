@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
+import firebase from './firebase'
 import {useHistory} from "react-router-dom";
 import SaveIcon from '@material-ui/icons/Save';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
@@ -20,11 +21,18 @@ function AddItems(props) {
     const [values, setValues]= useState({});
     
     const handleSubmit=()=>{
-        localStorage.setItem('myArray', JSON.stringify([...props.items, {...values}]));
-        props.itemsList([...props.items, {...values, id:Math.floor(Math.random() * 100)}]);
-        history.push('/');
+    
+      //  localStorage.setItem('myArray', JSON.stringify([...props.items, {...values}]));
+      
+      props.itemsList([...props.items, {...values}]);
+      
+      firebase.database().ref('/')
+      .set([...props.items,{...values}])
+      
+      history.push('/');
+     
     }
-
+  
     const classes = useStyles();
     
       

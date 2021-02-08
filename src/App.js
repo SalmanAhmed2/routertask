@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import React, { useState, useEffect } from 'react';
+import firebase from './Comps/firebase'
 import AddItems from './Comps/AddItems';
 import Home from './Comps/Home';
 import Details from "./Comps/Details";
@@ -16,17 +17,25 @@ export default function App(props) {
 
   useEffect(()=>{
   
-    let array = localStorage.getItem('myArray');
-  
-    setItems(JSON.parse(array));
-  
-  },[])
+    // let array = localStorage.getItem('myArray');
+    // setItems(JSON.parse(array));
+
+    firebase.database().ref('/').child("items")
+    .on('value', (snapshot) => {
+      const todos = snapshot.val();
+      const todoList = [];
+      for (let id in todos) {
+        todoList.push({ id, ...todos[id] });
+      }
+      setItems(todoList);
+    });
+  },[setItems])
 
   return (
     <Router>
       <Switch>
         <Route exact path="/">
-        <Home items={items} itemsList={itemsList} />
+        <Home items={items} itemsList={itemsList}/>
         </Route>
 
         <Route exact path="/form">
@@ -40,9 +49,6 @@ export default function App(props) {
         <Route path="/edit">
           <Edit itemsList={itemsList} items={items}/>
         </Route>
-        {/* <Route path="/imageviewer">
-          <ImageViewer/>
-        </Route> */}
       </Switch>
     </Router>
 );

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import '../App.css';
-import {useLocalStorage} from './useLocalStorage';
+import firebase from './firebase'
 import {useHistory, Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CreateIcon from '@material-ui/icons/Create';
@@ -9,13 +9,15 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 function Home(props) {
     let history = useHistory();
-
     const handleDelete =(item, index)=>{
    
       const delArra =   props.items.filter((itemVal, id) =>  id !== index);
-      localStorage.setItem('myArray', JSON.stringify(delArra))
+      firebase.database().ref('/')
+      .set(delArra)
+
+      // localStorage.setItem('myArray', JSON.stringify(delArra))
+      
       props.itemsList(delArra)
-   
     }
     
     const handleEdit=(item)=>{
@@ -23,7 +25,7 @@ function Home(props) {
           item
         })
     }
-   
+
     return (
         <div className="HomePage">
         <h1>Home Page</h1>
@@ -36,7 +38,6 @@ function Home(props) {
           <div className="cardClass">
             {props.items.map((item, index)=>
               <>
-              
               <table className="table">
                 <thead>
                 <tr className="tableheadrow">
@@ -57,8 +58,9 @@ function Home(props) {
               </tr>
           </tbody>
         </table>
+       
               </>
-              )}
+              )} 
             </div>
           
          </div>

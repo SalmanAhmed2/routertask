@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import firebase from './firebase';
 import { makeStyles } from '@material-ui/core/styles';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import UpdateIcon from '@material-ui/icons/Update';
@@ -20,12 +21,14 @@ function Edit(props) {
     const handleUpdate=()=>{
         const newValue = props.items.map((item)=> (item.id === values.id ? values : item))
         
-        localStorage.setItem('myArray', JSON.stringify([...newValue]));   
+        firebase.database().ref('/')
+        .set(newValue)
+
+        // localStorage.setItem('myArray', JSON.stringify([...newValue]));   
         
         props.itemsList([...newValue])
     
         history.push('/');
-    
 }
 
     const classes = useStyles();
