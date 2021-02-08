@@ -20,12 +20,12 @@ function Edit(props) {
     
     const handleUpdate=()=>{
         const newValue = props.items.map((item)=> (item.id === values.id ? values : item))
+        console.log("newvalues", newValue)
         
         firebase.database().ref('/')
         .set(newValue)
 
         // localStorage.setItem('myArray', JSON.stringify([...newValue]));   
-        
         props.itemsList([...newValue])
     
         history.push('/');

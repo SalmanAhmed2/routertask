@@ -17,10 +17,9 @@ export default function App(props) {
 
   useEffect(()=>{
   
-    // let array = localStorage.getItem('myArray');
-    // setItems(JSON.parse(array));
+  
 
-    firebase.database().ref('/').child("items")
+    firebase.database().ref('/')
     .on('value', (snapshot) => {
       const todos = snapshot.val();
       const todoList = [];
@@ -29,7 +28,7 @@ export default function App(props) {
       }
       setItems(todoList);
     });
-  },[setItems])
+  },[])
 
   return (
     <Router>

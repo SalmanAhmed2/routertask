@@ -24,8 +24,7 @@ function AddItems(props) {
     
       //  localStorage.setItem('myArray', JSON.stringify([...props.items, {...values}]));
       
-      props.itemsList([...props.items, {...values}]);
-      
+      props.itemsList([...props.items, {...values, id:Math.floor(Math.random() * 100)}]);      
       firebase.database().ref('/')
       .set([...props.items,{...values}])
       
