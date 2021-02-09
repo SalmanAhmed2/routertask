@@ -38,6 +38,7 @@ function Home(props) {
           <div className="cardClass">
             {props.items.map((item, index)=>
               <>
+
               <table className="table">
                 <thead>
                 <tr className="tableheadrow">

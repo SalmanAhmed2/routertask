@@ -23,7 +23,7 @@ function Edit(props) {
         console.log("newvalues", newValue)
         
         firebase.database().ref('/')
-        .set(newValue)
+        .set([...newValue])
 
         // localStorage.setItem('myArray', JSON.stringify([...newValue]));   
         props.itemsList([...newValue])
@@ -71,7 +71,7 @@ function Edit(props) {
             </div>
             <div className="formBTN">
             <input accept="image/*"
-            onChange={(event)=>{setValues({...values, img: event.target.files[0]})} }
+            onChange={(event)=>{setValues({...values, img: URL.createObjectURL(event.target.files[0])})} }
             className={classes.input} id="contained-button-file" multiple type="file"/>
 
             <label htmlFor="contained-button-file">

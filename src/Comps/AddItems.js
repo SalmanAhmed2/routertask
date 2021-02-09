@@ -24,17 +24,15 @@ function AddItems(props) {
     
       //  localStorage.setItem('myArray', JSON.stringify([...props.items, {...values}]));
       
-      props.itemsList([...props.items, {...values, id:Math.floor(Math.random() * 100)}]);      
       firebase.database().ref('/')
       .set([...props.items,{...values}])
-      
+      props.itemsList([...props.items, {...values, id:Math.floor(Math.random() * 100)}]);
       history.push('/');
      
     }
   
     const classes = useStyles();
     
-      
     return (
 
     <div className="addItems">
@@ -69,16 +67,16 @@ function AddItems(props) {
         onChange={(event) => {setValues({...values, descrp: event.target.value})}}
         id="outlined-multiline-static"
         label="Add Descriptions" multiline rows={5} variant="outlined"/>
-</div>
+    </div>
 
-        <div className="formBTN">
-        <input accept="image/*"
-        onChange={(event)=>{setValues({...values, img: event.target.files[0]})} }
-        className={classes.input} id="contained-button-file" multiple type="file"/>
-
-      <label htmlFor="contained-button-file">
-        <Button variant="contained" color="primary" component="span" startIcon={<PhotoCamera/>}>
-          Upload
+      <div className="formBTN">
+      <input accept="image/*" type="file"
+      // 
+      onChange={(event)=>{setValues({...values, img: URL.createObjectURL(event.target.files[0])})} }
+      className={classes.input} id="contained-button-file" multiple/>
+     <label htmlFor="contained-button-file">
+         <Button variant="contained" color="primary" component="span" startIcon={<PhotoCamera/>}>
+           Upload
         </Button>
       </label>
         <Button variant="contained" color="primary" startIcon={<SaveIcon/>} 
