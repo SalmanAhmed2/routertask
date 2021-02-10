@@ -5,7 +5,7 @@ import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import UpdateIcon from '@material-ui/icons/Update';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { useHistory, useLocation, useParams} from "react-router-dom";
+import { useHistory, useLocation} from "react-router-dom";
 import '../App.css';
 const useStyles = makeStyles((theme) => ({
     input: {
@@ -14,25 +14,48 @@ const useStyles = makeStyles((theme) => ({
 }));
 function Edit(props) {
     let history = useHistory();
+    let storage = firebase.storage();
     const location = useLocation(); 
     const selectedItem = location.state.item;
+
     const [values, setValues]= useState(selectedItem);
+    let [image, setImage]=useState(null);
+
+    const handleChangeImage=(e)=>{
+      if(e.target.files[0]){
+        setImage(e.target.files[0]);
+      }
+    }
     
     const handleUpdate=()=>{
-        const newValue = props.items.map((item)=> (item.id === values.id ? values : item))
-        console.log("newvalues", newValue)
         
-        firebase.database().ref('/')
-        .set([...newValue])
-
-        // localStorage.setItem('myArray', JSON.stringify([...newValue]));   
-        props.itemsList([...newValue])
+        const uploadTask = storage.ref(`images/${image.name}`).put(image);
+        uploadTask.on(
+            "state_changed",
+            snapshot => {},
+            error=>{
+          console.log(error);
+        },
+        ()=>{
+            storage
+            .ref("images")
+            .child(image.name)
+            .getDownloadURL()
+            .then(url =>{
+                let newValue = props.items.map((item)=> (item.id === values.id ? values: item))
+                let newURL = props.items.map((url)=>(url.url === values.url? values: url))
+                console.log("newURL", newURL)
+                // firebase.database().ref('/')
+                // .set([...newValue,url])
+                // props.itemsList([...newValue,url])
+            })
+        }
+      )
     
         history.push('/');
 }
 
-    const classes = useStyles();
-    let path = useParams();   
+    const classes = useStyles();  
     return (
         <div className="addItems">
         <h1>Edit Form</h1>
@@ -70,8 +93,10 @@ function Edit(props) {
             
             </div>
             <div className="formBTN">
+            
             <input accept="image/*"
-            onChange={(event)=>{setValues({...values, img: URL.createObjectURL(event.target.files[0])})} }
+            // {setValues({...values, img: URL.createObjectURL(event.target.files[0])})}
+            onChange={handleChangeImage}
             className={classes.input} id="contained-button-file" multiple type="file"/>
 
             <label htmlFor="contained-button-file">

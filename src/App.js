@@ -21,7 +21,7 @@ export default function App(props) {
     // setItems(JSON.parse(array));
 
 
-    firebase.database().ref('/')
+    firebase.database().ref('/').child("task")
     .on('value', (snapshot) => {
       const todos = snapshot.val();
       const todoList = [];

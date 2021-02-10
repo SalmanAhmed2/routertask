@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import '../App.css';
 import firebase from './firebase'
 import {useHistory} from "react-router-dom";
@@ -17,22 +17,43 @@ const useStyles = makeStyles((theme) => ({
 
 function AddItems(props) {
     let history = useHistory();
+    let storage = firebase.storage();
+    
+    let [values, setValues]= useState({});
+    let [image, setImage]=useState(null);
 
-    const [values, setValues]= useState({});
-    
-    const handleSubmit=()=>{
-    
-      //  localStorage.setItem('myArray', JSON.stringify([...props.items, {...values}]));
-      
-      firebase.database().ref('/')
-      .set([...props.items,{...values}])
-      props.itemsList([...props.items, {...values, id:Math.floor(Math.random() * 100)}]);
-      history.push('/');
-     
+    const handleChangeImage=(e)=>{
+      if(e.target.files[0]){
+        setImage(e.target.files[0]);
+      }
     }
-  
-    const classes = useStyles();
+
+    const handleSubmit=()=>{
+      //  localStorage.setItem('myArray', JSON.stringify([...props.items, {...values}]));
+
+      const uploadTask = storage.ref(`images/${image.name}`).put(image);
+      uploadTask.on(
+        "state_changed",
+        snapshot => {},
+        error=>{
+          console.log(error);
+        },
+        ()=>{
+          storage
+          .ref("images")
+          .child(image.name)
+          .getDownloadURL()
+          .then(url =>{
+            firebase.database().ref("/")
+            .set([...props.items,{...values, url}])
+            props.itemsList([...props.items, {...values, id:Math.floor(Math.random() * 100),url}]);
+          })
+        }
+      )
+      history.push('/');
+    }
     
+    const classes = useStyles();
     return (
 
     <div className="addItems">
@@ -43,7 +64,7 @@ function AddItems(props) {
         </Button>
 
         <div className="fields">
-        <TextField id="standard-basic" label="Add Title" 
+        <TextField id="standard-basic" label="Add Title" required
         className="inputTitle" value={values.title}
         onChange={(event) => {setValues({...values, title: event.target.value})}}/>
         
@@ -51,7 +72,7 @@ function AddItems(props) {
 
         <TextField
         className="inputDate"
-        id="date"
+        id="date" required
         label="Add Date"
         type="date"
         InputLabelProps={{shrink: true}}
@@ -63,16 +84,15 @@ function AddItems(props) {
             <br />
 
         <TextField
-        className="inputdes" value={values.descrp} type="text"
+        className="inputdes" value={values.descrp} type="text" required
         onChange={(event) => {setValues({...values, descrp: event.target.value})}}
         id="outlined-multiline-static"
         label="Add Descriptions" multiline rows={5} variant="outlined"/>
     </div>
 
       <div className="formBTN">
-      <input accept="image/*" type="file"
-      // 
-      onChange={(event)=>{setValues({...values, img: URL.createObjectURL(event.target.files[0])})} }
+      <input accept="image/*" type="file" required
+      onChange={handleChangeImage}
       className={classes.input} id="contained-button-file" multiple/>
      <label htmlFor="contained-button-file">
          <Button variant="contained" color="primary" component="span" startIcon={<PhotoCamera/>}>

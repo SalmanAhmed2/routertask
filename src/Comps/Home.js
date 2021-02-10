@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import '../App.css';
 import firebase from './firebase'
 import {useHistory, Link} from "react-router-dom";
@@ -12,7 +12,7 @@ function Home(props) {
     const handleDelete =(item, index)=>{
    
       const delArra =   props.items.filter((itemVal, id) =>  id !== index);
-      firebase.database().ref('/')
+      firebase.database().ref('/').child("tasks")
       .set(delArra)
 
       // localStorage.setItem('myArray', JSON.stringify(delArra))
@@ -25,7 +25,7 @@ function Home(props) {
           item
         })
     }
-
+    console.log(props.items)
     return (
         <div className="HomePage">
         <h1>Home Page</h1>

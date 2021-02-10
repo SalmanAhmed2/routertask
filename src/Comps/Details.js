@@ -9,17 +9,17 @@ function Details(props) {
     
     const history = useHistory();
     let path = useParams();
-    console.log("items",props.items)
 
     return (
             <div className="Details">
                 <h1>Details Page</h1>
                 <br/>
                 <Button onClick={()=>history.push('/')}
-                   variant="contained"
-                     startIcon={<KeyboardBackspaceIcon />}>
+                    variant="contained"
+                    startIcon={<KeyboardBackspaceIcon />}>
                     Back
                 </Button>
+
                 <div className="details-card">
                 {props.items.filter(item => item.id == path.id).map(filtereditem => (
                 <>
@@ -35,7 +35,8 @@ function Details(props) {
                         Description :
                         {filtereditem.descrp}
                     </h2>
-                    <img src={filtereditem.img} width="400" height="500"/> 
+                    {/* {console.log("ITEM",filtereditem.url)} */}
+                    <img src={filtereditem.url} alt="image" width="400" height="300"/> 
                      </>
                 ))}
 
