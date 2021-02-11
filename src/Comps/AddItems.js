@@ -44,9 +44,10 @@ function AddItems(props) {
           .child(image.name)
           .getDownloadURL()
           .then(url =>{
-            firebase.database().ref("/")
-            .set([...props.items,{...values, url}])
-            props.itemsList([...props.items, {...values, id:Math.floor(Math.random() * 100),url}]);
+            firebase.database().ref("task")
+            .push({...values, url})
+            //
+            props.itemsList([...props.items, {...values,url , id:firebase.database().ref("task").child}]);
           })
         }
       )

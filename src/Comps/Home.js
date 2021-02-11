@@ -11,13 +11,12 @@ function Home(props) {
     let history = useHistory();
     const handleDelete =(item, index)=>{
    
-      const delArra =   props.items.filter((itemVal, id) =>  id !== index);
-      firebase.database().ref('/').child("tasks")
-      .set(delArra)
-
-      // localStorage.setItem('myArray', JSON.stringify(delArra))
-      
+      const delArra =   props.items.filter((itemVal, id) => id !== index);
       props.itemsList(delArra)
+   
+      firebase.database().ref("task").child(item.id)
+      .remove();
+      // localStorage.setItem('myArray', JSON.stringify(delArra))
     }
     
     const handleEdit=(item)=>{
@@ -25,7 +24,6 @@ function Home(props) {
           item
         })
     }
-    console.log(props.items)
     return (
         <div className="HomePage">
         <h1>Home Page</h1>
@@ -38,7 +36,7 @@ function Home(props) {
           <div className="cardClass">
             {props.items.map((item, index)=>
               <>
-
+             
               <table className="table">
                 <thead>
                 <tr className="tableheadrow">

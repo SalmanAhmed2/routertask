@@ -21,14 +21,15 @@ export default function App(props) {
     // setItems(JSON.parse(array));
 
 
-    firebase.database().ref('/').child("task")
+    firebase.database().ref("task")
     .on('value', (snapshot) => {
       const todos = snapshot.val();
       const todoList = [];
-      for (let id in todos) {
-        todoList.push({ id, ...todos[id] });
-      }
-     
+      Object.keys(todos).map((key)=>todoList.push({ id: key, ...todos[key] }) )
+      // for (let id in todos) {
+      //   todoList.push({ id, ...todos[id] });
+      // }
+   
       setItems(todoList);
     });
   },[setItems])

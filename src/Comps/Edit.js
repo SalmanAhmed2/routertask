@@ -28,11 +28,11 @@ function Edit(props) {
     }
     
     const handleUpdate=()=>{
-        
-        const uploadTask = storage.ref(`images/${image.name}`).put(image);
-        uploadTask.on(
-            "state_changed",
-            snapshot => {},
+  
+      const uploadTask = storage.ref(`images/${image.name}`).put(image);
+      uploadTask.on(
+        "state_changed",
+        snapshot => {},
             error=>{
           console.log(error);
         },
@@ -42,12 +42,13 @@ function Edit(props) {
             .child(image.name)
             .getDownloadURL()
             .then(url =>{
-                let newValue = props.items.map((item)=> (item.id === values.id ? values: item))
-                let newURL = props.items.map((url)=>(url.url === values.url? values: url))
-                console.log("newURL", newURL)
-                // firebase.database().ref('/')
-                // .set([...newValue,url])
-                // props.itemsList([...newValue,url])
+               let newValue = props.items.map((item)=> (item.id === values.id ? values: item))
+               let newURL = newValue.filter((item)=> (item.url === url ?  item : item.url  = url ))
+
+               props.itemsList(newValue)
+               console.log("newvalues", )
+              firebase.database().ref("task").child(values.id)
+              .set(values)
             })
         }
       )
